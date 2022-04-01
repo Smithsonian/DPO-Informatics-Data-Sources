@@ -106,12 +106,11 @@ def process_record(record):
                     (item_id, langs[lang]['language'], langs[lang]['value']))
             if english_label != None:
                 cur.execute("""
-                    INSERT INTO wikidata_records (source_id, type, name, latitude, longitude, the_geom, gadm1)
+                    INSERT INTO wikidata_records (source_id, type, name, latitude, longitude, the_geom)
                     (
                         SELECT 
                             %(id)s, %(type)s, %(name)s, %(latitude)s, %(longitude)s, 
-                            ST_SETSRID(ST_POINT(%(longitude)s, %(latitude)s), 4326), 
-                            g.name_1 || ', ' || g.name_0 
+                            ST_SETSRID(ST_POINT(%(longitude)s, %(latitude)s), 4326)
                         FROM
                             gadm1 g 
                         WHERE 
@@ -177,7 +176,7 @@ if __name__ == '__main__':
     cur.execute("CREATE INDEX wikidata_records_id_idx ON wikidata_records USING BTREE(source_id);")
     cur.execute("CREATE INDEX wikidata_records_uid_idx ON wikidata_records USING BTREE(uid);")
     cur.execute("CREATE INDEX wikidata_records_name_trgm_idx ON wikidata_records USING gin (name gin_trgm_ops);")
-    cur.execute("CREATE INDEX wikidata_records_gadm1_idx ON wikidata_records USING gin (gadm1 gin_trgm_ops);")
+    # cur.execute("CREATE INDEX wikidata_records_gadm1_idx ON wikidata_records USING gin (gadm1 gin_trgm_ops);")
     cur.execute("CREATE INDEX wikidata_records_the_geom_idx ON wikidata_records USING gist(the_geom);")
 
     #Drop entries with broad coordinates

@@ -14,7 +14,7 @@ script_date=$(date +'%Y-%m-%d')
 
 
 # wget https://download.geofabrik.de/africa-latest.osm.pbf
-# #wget https://download.geofabrik.de/antarctica-latest.osm.pbf
+# wget https://download.geofabrik.de/antarctica-latest.osm.pbf
 # wget https://download.geofabrik.de/asia-latest.osm.pbf
 # wget https://download.geofabrik.de/australia-oceania-latest.osm.pbf
 # wget https://download.geofabrik.de/central-america-latest.osm.pbf

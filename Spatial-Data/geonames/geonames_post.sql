@@ -68,3 +68,8 @@ ALTER TABLE geonames ADD COLUMN gadm2 text;
 UPDATE geonames geo SET gadm2 = g.name_2 || ', ' || g.name_1 || ', ' || g.name_0 FROM gadm2 g WHERE ST_INTERSECTS(geo.the_geom, g.the_geom);
 
 CREATE INDEX geonames_gadm2_idx ON geonames USING gin (gadm2 gin_trgm_ops);
+
+ALTER TABLE geonames ADD COLUMN the_geom_webmercator geometry;
+
+UPDATE geonames SET the_geom_webmercator = st_transform(the_geom, 3857);
+CREATE INDEX geonames_tgeomw_idx ON geonames USING GIST(the_geom_webmercator);

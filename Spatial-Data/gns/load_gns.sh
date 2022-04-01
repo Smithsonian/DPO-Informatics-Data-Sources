@@ -5,23 +5,16 @@
 # v 2021-09-27
 #
 
-#script_date=$(date +'%Y-%m-%d')
+script_date=$(date +'%Y-%m-%d')
 
 #Download dataset from http://geonames.nga.mil/gns/html/namefiles.html
 # Example:
 #   wget http://geonames.nga.mil/gns/html/cntyfile/geonames_20200217.zip
 #   unzip geonames_20200217.zip
 
-script_date='2021-09-20'
 
-FILE=Countries.txt
-if [ ! -f "$FILE" ]; then
-    echo ""
-    echo " $FILE not found"
-    echo ""
-    exit
-fi
-
+echo "Don't run automatically"
+exit
 
 
 #Remove first line

@@ -41,12 +41,15 @@ create table gns (
 \copy gns FROM 'Countries.txt';
 
 ALTER TABLE gns ADD COLUMN the_geom geometry(POINT, 4326);
-
 UPDATE gns SET the_geom = ST_SETSRID(ST_POINT(long::numeric, lat::numeric), 4326);
+CREATE INDEX gns_thegeom_idx ON gns USING GIST(the_geom);
+
+ALTER TABLE gns ADD COLUMN the_geom_webmercator geometry(POINT, 3857);
+UPDATE gns SET the_geom_webmercator = ST_TRANSFORM(the_geom, 3857);
+CREATE INDEX gns_thegeomw_idx ON gns USING GIST(the_geom_webmercator);
 
 --For ILIKE queries
 CREATE INDEX gns_name_trgm_idx ON gns USING gin (full_name_nd_ro gin_trgm_ops);
-CREATE INDEX gns_thegeom_idx ON gns USING GIST(the_geom);
 CREATE INDEX gns_country_idx ON gns USING BTREE(cc1);
 
 alter table gns add column uid uuid DEFAULT uuid_generate_v4();
@@ -59,8 +62,8 @@ UPDATE gns SET the_geom_webmercator = ST_Transform(the_geom, 3857);
 CREATE INDEX gns_thegeomw_idx ON gns USING GIST(the_geom_webmercator);*/
 
 --Add gadm2 intersection
-ALTER TABLE gns ADD COLUMN gadm2 text;
-
-UPDATE gns geo SET gadm2 = g.name_2 || ', ' || g.name_1 || ', ' || g.name_0 FROM gadm2 g WHERE ST_INTERSECTS(geo.the_geom, g.the_geom);
-
-CREATE INDEX gns_gin_gadm2_idx ON gns USING gin(gadm2 gin_trgm_ops);
+-- ALTER TABLE gns ADD COLUMN gadm2 text;
+--
+-- UPDATE gns geo SET gadm2 = g.name_2 || ', ' || g.name_1 || ', ' || g.name_0 FROM gadm2 g WHERE ST_INTERSECTS(geo.the_geom, g.the_geom);
+--
+-- CREATE INDEX gns_gin_gadm2_idx ON gns USING gin(gadm2 gin_trgm_ops);
