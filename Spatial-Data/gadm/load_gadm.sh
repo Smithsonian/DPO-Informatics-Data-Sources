@@ -99,3 +99,5 @@ psql -U gisuser -h localhost -p 5432 gis < gadm_post.sql
 psql -U gisuser -h localhost gis -c "WITH data AS (SELECT count(*) as no_features FROM gadm) UPDATE data_sources SET no_features = data.no_features FROM data WHERE datasource_id = 'gadm';"
 
 psql -U gisuser -h localhost gis -c "UPDATE data_sources SET is_online = 't', source_date = '$script_date' WHERE datasource_id = 'gadm';"
+
+psql -U gisuser -h localhost gis -c "UPDATE data_sources SET source_title = 'Database of Global Administrative Areas. v 4.0.4' WHERE datasource_id = 'gadm';"
