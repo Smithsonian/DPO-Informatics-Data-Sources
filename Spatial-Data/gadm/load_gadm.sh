@@ -55,9 +55,41 @@ psql -U gisuser -h localhost -p 5432 gis -c "DROP TABLE IF EXISTS gadm2 CASCADE;
 psql -U gisuser -h localhost -p 5432 gis -c "DROP TABLE IF EXISTS gadm3 CASCADE;"
 psql -U gisuser -h localhost -p 5432 gis -c "DROP TABLE IF EXISTS gadm4 CASCADE;"
 psql -U gisuser -h localhost -p 5432 gis -c "DROP TABLE IF EXISTS gadm5 CASCADE;"
-shp2pgsql -g the_geom -D gadm404.shp gadm > gadm.sql
-psql -U gisuser -h localhost -p 5432 gis < gadm.sql
-rm gadm.sql
+psql -U gisuser -h localhost -p 5432 gis -c "DROP VIEW IF EXISTS gadm;"
+
+
+
+#level1
+shp2pgsql -g the_geom -D gadm404_level1.shp gadm1 > gadm1.sql
+psql -U gisuser -h localhost -p 5432 gis < gadm1.sql
+rm gadm1.sql
+
+
+#level2
+shp2pgsql -g the_geom -D gadm404_level2.shp gadm2 > gadm2.sql
+psql -U gisuser -h localhost -p 5432 gis < gadm2.sql
+rm gadm2.sql
+
+
+#level3
+shp2pgsql -g the_geom -D gadm404_level3.shp gadm3 > gadm3.sql
+psql -U gisuser -h localhost -p 5432 gis < gadm3.sql
+rm gadm3.sql
+
+
+#level4
+shp2pgsql -g the_geom -D gadm404_level4.shp gadm4 > gadm4.sql
+psql -U gisuser -h localhost -p 5432 gis < gadm4.sql
+rm gadm4.sql
+
+
+#level5
+shp2pgsql -g the_geom -D gadm404_level5.shp gadm5 > gadm5.sql
+psql -U gisuser -h localhost -p 5432 gis < gadm5.sql
+rm gadm5.sql
+
+
+
 
 
 
