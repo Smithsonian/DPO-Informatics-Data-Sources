@@ -8,3 +8,5 @@ settings.py
 .Rproj.user
 *.xlsx
 *.xls
+
+*.log

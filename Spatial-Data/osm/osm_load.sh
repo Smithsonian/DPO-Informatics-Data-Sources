@@ -14,12 +14,13 @@ script_date=$(date +'%Y-%m-%d')
 
 
 # wget https://download.geofabrik.de/africa-latest.osm.pbf
+
 # wget https://download.geofabrik.de/antarctica-latest.osm.pbf
 # wget https://download.geofabrik.de/asia-latest.osm.pbf
 # wget https://download.geofabrik.de/australia-oceania-latest.osm.pbf
 # wget https://download.geofabrik.de/central-america-latest.osm.pbf
 # wget https://download.geofabrik.de/europe-latest.osm.pbf
-wget https://download.geofabrik.de/north-america-latest.osm.pbf
+# wget https://download.geofabrik.de/north-america-latest.osm.pbf
 # wget https://download.geofabrik.de/south-america-latest.osm.pbf
 
 
@@ -35,16 +36,44 @@ for j in *.pbf; do
     echo "Working on file $j..."
     echo ""
     #Import pbf to postgres
+    rm /mnt/fastdisk/tmp/mycache.bin
     osm2pgsql --latlong --username gisuser --host localhost --database osm -C 16000 --create --slim --number-processes 8 --multi-geometry --verbose --unlogged --flat-nodes /mnt/fastdisk/tmp/mycache.bin $j
 
-
     #Execute for each column
-    for i in ${!cols[@]}; do
+    for i in ${cols[@]:0:6}; do
         #run separate script
-        bash process_col.sh ${!cols[@]} $j &
+        bash process_col.sh $i $j &
     done
-    #wait for all columns to be done
+    # wait for all columns to be done
     wait
+
+    for i in ${cols[@]:6:6}; do
+        #run separate script
+        bash process_col.sh $i $j &
+    done
+    # wait for all columns to be done
+    wait
+
+    for i in ${cols[@]:12:6}; do
+        #run separate script
+        bash process_col.sh $i $j &
+    done
+    wait
+
+    for i in ${cols[@]:18:6}; do
+        #run separate script
+        bash process_col.sh $i $j &
+    done
+    # wait for all columns to be done
+    wait
+
+    for i in ${cols[@]:24:6}; do
+        #run separate script
+        bash process_col.sh $i $j &
+    done
+    # wait for all columns to be done
+    wait
+
 mv $j done/
 done
 
@@ -62,19 +91,20 @@ psql -U gisuser -h localhost osm -c "DROP TABLE IF EXISTS planet_osm_ways CASCAD
 
 
 #Move table between dbs
-psql -U gisuser -h localhost gis -c "DROP TABLE IF EXISTS osm CASCADE;"
-pg_dump -U gisuser -h localhost -t osm osm | psql -U gisuser -h localhost gis
+psql -U gisuser -h localhost gis -c "DROP TABLE IF EXISTS osm_polygons CASCADE;"
+pg_dump -U gisuser -h localhost -t osm_polygons osm | psql -U gisuser -h localhost gis
+psql -U gisuser -h localhost osm -c "DROP TABLE IF EXISTS osm_polygons CASCADE;"
 
 
 #Recreate indices
-psql -U gisuser -h localhost gis -c "CREATE INDEX osm_name_idx ON osm USING gin (name gin_trgm_ops);"
-psql -U gisuser -h localhost gis -c "CREATE INDEX osm_country_idx ON osm USING gin (country gin_trgm_ops);"
-psql -U gisuser -h localhost gis -c "CREATE INDEX osm_gadm2_idx ON osm USING gin (gadm2 gin_trgm_ops);"
-psql -U gisuser -h localhost gis -c "CREATE INDEX osm_thegeom_idx ON osm USING GIST(the_geom);"
-psql -U gisuser -h localhost gis -c "CREATE INDEX osm_thegeomw_idx ON osm USING GIST(the_geom_webmercator);"
-psql -U gisuser -h localhost gis -c "CREATE INDEX osm_centroid_idx ON osm USING GIST(centroid);"
+psql -U gisuser -h localhost gis -c "CREATE INDEX osm_name_idx ON osm_polygons USING gin (name gin_trgm_ops);"
+psql -U gisuser -h localhost gis -c "CREATE INDEX osm_country_idx ON osm_polygons USING gin (country gin_trgm_ops);"
+psql -U gisuser -h localhost gis -c "CREATE INDEX osm_gadm2_idx ON osm_polygons USING gin (gadm2 gin_trgm_ops);"
+psql -U gisuser -h localhost gis -c "CREATE INDEX osm_thegeom_idx ON osm_polygons USING GIST(the_geom);"
+psql -U gisuser -h localhost gis -c "CREATE INDEX osm_thegeomw_idx ON osm_polygons USING GIST(the_geom_webmercator);"
+psql -U gisuser -h localhost gis -c "CREATE INDEX osm_centroid_idx ON osm_polygons USING GIST(centroid);"
 
 
 #Turn datasource online
-psql -U gisuser -h localhost gis -c "UPDATE data_sources SET is_online = 't', source_date = '$script_date', no_features = w.no_feats FROM (select count(*) as no_feats from osm) w WHERE datasource_id = 'osm';"
+psql -U gisuser -h localhost gis -c "UPDATE data_sources SET is_online = 't', source_date = '$script_date', no_features = w.no_feats FROM (select count(*) as no_feats from osm_polygons) w WHERE datasource_id = 'osm';"
 

@@ -197,6 +197,21 @@ delete from gadm5 where uid in
 
 
 
+ALTER TABLE gadm2 ADD column located_at text;
+ALTER TABLE gadm3 ADD column located_at text;
+ALTER TABLE gadm4 ADD column located_at text;
+ALTER TABLE gadm5 ADD column located_at text;
+
+UPDATE gadm2 SET located_at = name_1 || ', ' || name_0;
+UPDATE gadm3 SET located_at = name_2 || ', ' || name_1 || ', ' || name_0;
+UPDATE gadm4 SET located_at = name_3 || ', ' || name_2 || ', ' || name_1 || ', ' || name_0;
+UPDATE gadm5 SET located_at = name_4 || ', ' || name_3 || ', ' || name_2 || ', ' || name_1 || ', ' || name_0;
+
+CREATE INDEX gadm2_located_idx ON gadm2 USING BTREE(located_at);
+CREATE INDEX gadm3_located_idx ON gadm3 USING BTREE(located_at);
+CREATE INDEX gadm4_located_idx ON gadm4 USING BTREE(located_at);
+CREATE INDEX gadm5_located_idx ON gadm5 USING BTREE(located_at);
+
 
 --view
 DROP VIEW gadm;

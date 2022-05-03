@@ -14,16 +14,16 @@ script_date=$(date +'%Y-%m-%d')
 
 unzip 000.zip -x occurrence.txt meta.xml verbatim.txt citations.txt multimedia.txt rights.txt
 
-#unzip file and break into pieces via pipes
-unzip -p 000.zip occurrence.txt | split -l 500000 - gbifdwc
-
-#Remove first line (header) in the first file
-sed -i '1d' gbifdwcaa
-
 psql -U gisuser -h localhost gis -c "UPDATE data_sources SET is_online = 'f' WHERE datasource_id = 'gbif';"
 
 #Setup tables
 psql -U gisuser -h localhost gis < gbif_tables.sql
+
+
+#unzip file and break into pieces via pipes
+unzip -p 000.zip occurrence.txt | tail -n +2 | split -l 500000 - gbifdwc
+
+
 
 
 # Load the segments to the occurrence table, then import to the final, and simplified, gbif table
@@ -40,6 +40,8 @@ done
 
 #Delete temp table
 psql -U gisuser -h localhost gis -c "DROP TABLE IF EXISTS gbif_occ CASCADE;"
+psql -U gisuser -h localhost gis -c "DROP TABLE IF EXISTS gbif_occ2 CASCADE;"
+
 
 #Extract dataset info
 cp gbifdatasets.py dataset/
