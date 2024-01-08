@@ -1,0 +1,227 @@
+-- gadm0
+ALTER TABLE gadm0 
+ALTER COLUMN gid_0 TYPE varchar(264);
+
+ALTER TABLE gadm0 
+ALTER COLUMN country TYPE varchar(264);
+
+
+-- gadm1
+ALTER TABLE gadm1 
+ALTER COLUMN gid_1 TYPE varchar(264);
+
+ALTER TABLE gadm1 
+ALTER COLUMN gid_0 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN country TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN name_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN varname_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN nl_name_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN type_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN engtype_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN cc_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN hasc_1 TYPE varchar(264);
+
+ALTER TABLE gadm1
+ALTER COLUMN iso_1 TYPE varchar(264);
+
+
+-- gadm2
+ALTER TABLE gadm2
+ALTER COLUMN gid_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN gid_0 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN country TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN gid_1 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN name_1 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN nl_name_1 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN name_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN varname_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN nl_name_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN type_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN engtype_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN cc_2 TYPE varchar(264);
+
+ALTER TABLE gadm2
+ALTER COLUMN hasc_2 TYPE varchar(264);
+
+	
+
+-- gadm3
+ALTER TABLE gadm3
+ALTER COLUMN gid_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN gid_0 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN country TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN gid_1 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN name_1 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN nl_name_1 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN gid_2 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN name_2 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN nl_name_2 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN name_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN varname_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN nl_name_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN type_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN engtype_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN cc_3 TYPE varchar(264);
+
+ALTER TABLE gadm3
+ALTER COLUMN hasc_3 TYPE varchar(264);
+
+
+
+
+
+-- gadm4
+ALTER TABLE gadm4
+ALTER COLUMN gid_4 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN gid_0 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN country TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN gid_1 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN name_1 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN gid_2 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN name_2 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN gid_3 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN name_3 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN name_4 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN varname_4 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN type_4 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN engtype_4 TYPE varchar(264);
+
+ALTER TABLE gadm4
+ALTER COLUMN cc_4 TYPE varchar(264);
+
+
+-- gadm5
+ALTER TABLE gadm5
+ALTER COLUMN gid_0 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN country TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN gid_1 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN name_1 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN gid_2 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN name_2 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN gid_3 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN name_3 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN gid_4 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN name_4 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN gid_5 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN name_5 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN type_5 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN engtype_5 TYPE varchar(264);
+
+ALTER TABLE gadm5
+ALTER COLUMN cc_5 TYPE varchar(264);
