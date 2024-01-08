@@ -1,0 +1,7 @@
+#Postgres creds
+host = "localhost"
+db = ""
+user = ""
+password = ""
+
+parallel_workers = 4
