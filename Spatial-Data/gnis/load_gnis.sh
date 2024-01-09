@@ -6,7 +6,7 @@ script_date=$(date +'%Y-%m-%d')
 #Download dump from 
 #  https://www.usgs.gov/us-board-on-geographic-names/download-gnis-data
 
-unzip NationalFile.zip
+unzip DomesticNames_National_Text.zip
 
 #Turn datasource offline
 psql -c "UPDATE data_sources SET is_online = 'f' WHERE datasource_id = 'gnis';"
@@ -46,7 +46,7 @@ psql -c "CREATE TABLE gnis (
     );"
 
 
-datafile=`ls NationalFile_*.txt`
+datafile='Text/DomesticNames_National.txt'
 
 psql -c "\copy gnis from '$datafile' DELIMITER '|' CSV HEADER;"
 
