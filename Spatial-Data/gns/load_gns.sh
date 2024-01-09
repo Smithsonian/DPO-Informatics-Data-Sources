@@ -36,3 +36,5 @@ psql < gns.sql
 psql -c "WITH data AS (SELECT count(*) as no_features FROM gns) UPDATE data_sources SET no_features = data.no_features FROM data WHERE datasource_id = 'gns';"
 
 psql -c "UPDATE data_sources SET is_online = 't', source_date = '$script_date' WHERE datasource_id = 'gns';"
+
+rm Whole_World.*
