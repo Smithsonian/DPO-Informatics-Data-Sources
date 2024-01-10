@@ -2,12 +2,12 @@
 #
 # Load the Atlas of Historical County Boundaries data
 #
-# v 2020-06-16
+# v 2024-01-16
 #
 
 script_date=$(date +'%Y-%m-%d')
 
-wget https://publications.newberry.org/ahcbp/downloads/gis/US_AtlasHCB_Counties.zip
+wget https://digital.newberry.org/ahcb/downloads/gis/US_AtlasHCB_Counties.zip
 unzip US_AtlasHCB_Counties.zip
 cd US_AtlasHCB_Counties/US_HistCounties_Shapefile/
 shp2pgsql -g the_geom -s 4326 -D US_HistCounties.shp hist_counties > hist.sql
