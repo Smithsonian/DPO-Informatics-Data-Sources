@@ -2,12 +2,12 @@
 #
 # Load the Places gazetteer of Spanish America, 1701-1808
 #
-# v 2021-04-01
+# v 2024-01-10
 #
 
 script_date=$(date +'%Y-%m-%d')
 
-shp2pgsql -g the_geom -s 4326 -D gazetteer-2019-03-28.shp hgis_indias > hgis_indias.sql
+shp2pgsql -g the_geom -s 4326 -D GZ.shp hgis_indias > hgis_indias.sql
 
 
 #Turn datasource offline
