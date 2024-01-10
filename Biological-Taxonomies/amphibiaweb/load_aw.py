@@ -64,7 +64,7 @@ cur.execute("INSERT INTO th_ranks (thesaurus_id, rank_name) VALUES (%s, 'Species
 l5_rank = cur.fetchone()['rank_id']
 
 
-filename = 'amphib_names.tsv'
+filename = 'amphib_names.txt'
 
 
 query_elements = "INSERT INTO th_elements (element_name, element_parent, rank_id, element_source_id) VALUES " \
