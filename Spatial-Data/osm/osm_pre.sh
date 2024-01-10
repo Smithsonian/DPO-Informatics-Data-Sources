@@ -30,8 +30,6 @@ psql -c "DROP INDEX IF EXISTS osm_centroid_idx;"
 psql < table.sql
 
 
-pg_dump --table="gadm2" -x > gadm2.sql
-
-psql -c "DROP TABLE IF EXISTS gadm2 CASCADE;"
-
-psql < gadm2.sql
+#pg_dump --table="gadm2" -x > gadm2.sql
+#psql -c "DROP TABLE IF EXISTS gadm2 CASCADE;"
+#psql < gadm2.sql
