@@ -1,0 +1,148 @@
+#!/bin/bash
+
+#Today's date
+script_date=$(date +'%Y-%m-%d')
+
+#Download data
+wget -O list.csv "https://paleobiodb.org/data1.2/occs/list.csv?show=full&taxon_status=all&all_records"
+
+
+#Turn datasource offline
+psql -c "UPDATE data_sources SET is_online = 'f' WHERE datasource_id = 'paleodb';"
+
+
+psql -c "DROP TABLE IF EXISTS paleodb CASCADE;"
+
+#Create table
+psql -c "CREATE TABLE paleodb (
+		occurrence_no	text,
+		record_type	text,
+		reid_no	text,
+		flags	text,
+		collection_no	text,
+		identified_name	text,
+		identified_rank	text,
+		identified_no	text,
+		difference	text,
+		accepted_name	text,
+		accepted_attr	text,
+		accepted_rank	text,
+		accepted_no	text,
+		early_interval	text,
+		late_interval	text,
+		max_ma	text,
+		min_ma	text,
+		ref_author	text,
+		ref_pubyr	text,
+		reference_no	text,
+		phylum	text,
+		class	text,
+		_order	text,
+		family	text,
+		genus	text,
+		plant_organ	text,
+		plant_organ2	text,
+		abund_value	text,
+		abund_unit	text,
+		lng	text,
+		lat	text,
+		occurrence_comments	text,
+		collection_name	text,
+		collection_subset	text,
+		collection_aka	text,
+		cc	text,
+		state	text,
+		county	text,
+		latlng_basis	text,
+		latlng_precision	text,
+		geogscale	text,
+		geogcomments	text,
+		paleomodel	text,
+		geoplate	text,
+		paleoage	text,
+		paleolng	text,
+		paleolat	text,
+		cc2	text,
+		protected	text,
+		formation	text,
+		stratgroup	text,
+		member	text,
+		stratscale	text,
+		zone	text,
+		localsection	text,
+		localbed	text,
+		localbedunit	text,
+		localorder	text,
+		regionalsection	text,
+		regionalbed	text,
+		regionalbedunit	text,
+		regionalorder	text,
+		stratcomments	text,
+		lithdescript	text,
+		lithology1	text,
+		lithadj1	text,
+		lithification1	text,
+		minor_lithology1	text,
+		fossilsfrom1	text,
+		lithology2	text,
+		lithadj2	text,
+		lithification2	text,
+		minor_lithology2	text,
+		fossilsfrom2	text,
+		environment	text,
+		tectonic_setting	text,
+		geology_comments	text,
+		assembl_comps	text,
+		articulated_parts	text,
+		associated_parts	text,
+		common_body_parts	text,
+		rare_body_parts	text,
+		feed_pred_traces	text,
+		artifacts	text,
+		component_comments	text,
+		pres_mode	text,
+		preservation_quality	text,
+		spatial_resolution	text,
+		temporal_resolution	text,
+		lagerstatten	text,
+		concentration	text,
+		orientation	text,
+		abund_in_sediment	text,
+		sorting	text,
+		fragmentation	text,
+		bioerosion	text,
+		encrustation	text,
+		preservation_comments	text,
+		collection_type	text,
+		collection_methods	text,
+		museum	text,
+		collection_coverage	text,
+		collection_size	text,
+		rock_censused	text,
+		collectors	text,
+		collection_dates	text,
+		collection_comments	text,
+		taxonomy_comments	text,
+		taxon_environment	text,
+		environment_basis	text,
+		motility	text,
+		life_habit	text,
+		vision	text,
+		diet	text,
+		reproduction	text,
+		ontogeny	text,
+		ecospace_comments	text,
+		composition	text,
+		architecture	text,
+		thickness	text,
+		reinforcement	text
+    );"
+
+
+psql -c "\copy paleodb from 'list.csv' DELIMITER ',' CSV HEADER;"
+
+psql < paleodb_post.sql
+
+psql -c "UPDATE data_sources SET is_online = 't', source_date = '$script_date', no_features = w.no_feats FROM (select count(*) as no_feats from paleodb) w WHERE datasource_id = 'paleodb';"
+
+rm *.csv
