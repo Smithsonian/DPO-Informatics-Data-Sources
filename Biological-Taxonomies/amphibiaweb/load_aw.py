@@ -17,9 +17,7 @@ import settings
 
 
 try:
-    conn = psycopg2.connect(host=settings.pg_host,
-                            database=settings.pg_db,
-                            user=settings.pg_user)
+    conn = psycopg2.connect()
 except psycopg2.Error as e:
     print(e)
     sys.exit(1)
@@ -33,8 +31,8 @@ thes_id = 'aw_amphibians'
 
 
 cur.execute("delete from th_thesaurus WHERE thesaurus_id = %s", (thes_id,))
-cur.execute("INSERT INTO th_thesaurus (thesaurus_id, thesaurus_name, thesaurus_type) VALUES (%s, "
-            "'AmphibiaWeb (2022)', 'bio_taxonomy')", (thes_id,))
+cur.execute("INSERT INTO th_thesaurus (thesaurus_id, thesaurus_name, thesaurus_version, thesaurus_type) VALUES (%s, "
+            "'AmphibiaWeb', 'Version 2.0', 'bio_taxonomy')", (thes_id,))
 
 
 cur.execute("delete from th_ranks WHERE thesaurus_id = %s", (thes_id, ))
@@ -129,6 +127,7 @@ with open(filename, newline='', encoding='utf-8') as csvfile:
             continue
 
 
+cur.execute("WITH data AS (SELECT count(*) as no_features FROM th_elements WHERE rank_id IN (SELECT rank_id from th_ranks WHERE thesaurus_id = '%s')) UPDATE th_thesaurus SET no_records = data.no_features FROM data WHERE thesaurus_id = '%s'", (thes_id, thes_id))
 
 
 cur.close()
